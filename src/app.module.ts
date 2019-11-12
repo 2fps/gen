@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { HitCountController } from './controller/hit-count/hit-count.controller';
+import { MongooseModule } from '@nestjs/mongoose';
+
+import { HitCountModule } from './module/hitCount.module';
 
 @Module({
-  imports: [],
-  controllers: [AppController, HitCountController],
-  providers: [AppService],
+  imports: [MongooseModule.forRoot('mongodb://localhost/blog'), HitCountModule],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

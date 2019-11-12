@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { HitCountController } from './hit-count.controller';
+import { HitCountController } from './hitCount.controller';
 
 describe('HitCount Controller', () => {
   let controller: HitCountController;
