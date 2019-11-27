@@ -15,9 +15,9 @@ const cache = {
 }
 
 @Injectable()
-export class VoiceService {
+export class AliyunService {
 
-  async getToken() {
+  async getToken(): Promise<string> {
     return new Promise((resolve, reject) => {
       if (+new Date() < cache.ExpireTime) {
         resolve(cache.Id);
@@ -31,7 +31,7 @@ export class VoiceService {
     });
   }
 
-  async translate(buffer) {
+  async translate(buffer): Promise<string> {
     const options = {
       url: 'http://nls-gateway.cn-shanghai.aliyuncs.com/stream/v1/asr?appkey=UL9Xm7wmBiTa2YmW',
       method: 'POST',
@@ -44,7 +44,7 @@ export class VoiceService {
       body: buffer
     };
 
-    const tokenId = await getToken();
+    const tokenId = await this.getToken();
     options.headers['X-NLS-Token'] = tokenId;
 
     return new Promise((resolve, reject) => {
@@ -60,10 +60,4 @@ export class VoiceService {
       });
     });
   }
-}
-
-async function getToken(): Promise<string>  {
-  return client.request('POST', '/pop/2018-05-18/tokens').then((result) => {
-    return result.Token.Id
-  });
 }

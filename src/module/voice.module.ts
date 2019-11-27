@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { VoiceController } from '../controller/voice/voice.controller';
-import { VoiceService } from '../service/voice/voice.service';
+import { AliyunService } from '../service/voice/aliyun.service';
+import { BaiduyunService } from '../service/voice/baiduyun.service';
 
 @Module({
   imports: [],
   controllers: [VoiceController],
-  providers: [VoiceService],
+  providers: [AliyunService, BaiduyunService],
 })
 export class VoiceModule {}
