@@ -18,7 +18,7 @@ export class BaiduyunService {
         //   // 其他异常
         //   return;
         // }
-        console.log(result);
+        // console.log(result);
         resolve(result.result[0]);
       }).catch(function() {
 

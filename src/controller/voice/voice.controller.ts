@@ -1,12 +1,15 @@
 import { Controller, Post, Options, Req, Res, Query } from '@nestjs/common';
 import { AliyunService } from '../../service/voice/aliyun.service';
 import { BaiduyunService } from '../../service/voice/baiduyun.service';
+import { TencentyunService } from '../../service/voice/tencentyun.service';
 
-const platfoms = ['aliyun', 'baiduyun'];
+const platfoms = ['aliyun', 'baiduyun', 'tencentyun'];
  
 @Controller('voice')
 export class VoiceController {
-  constructor(private readonly aliyunService: AliyunService, private readonly baiduyunService: BaiduyunService) {}
+  constructor(private readonly aliyunService: AliyunService,
+    private readonly baiduyunService: BaiduyunService,
+    private readonly tencentyunService: TencentyunService) {}
 
   @Post()
   voice(@Req() req, @Res() res, @Query() query) {
@@ -29,8 +32,10 @@ export class VoiceController {
 
       if (query.platform === 'baiduyun') {
         trans = await this.baiduyunService.translate(buffer);
-      } else {
+      } else if (query.platform === 'aliyun') {
         trans = await this.aliyunService.translate(buffer);
+      } else if (query.platform === 'tencentyun') {
+        trans = await this.tencentyunService.translate(buffer);
       }
 
       res.send(JSON.stringify({

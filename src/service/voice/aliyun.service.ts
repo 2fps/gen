@@ -57,7 +57,7 @@ export class AliyunService {
         }
 
         resolve(JSON.parse(body).result);
-      });
+      }, function() {});
     });
   }
 }
